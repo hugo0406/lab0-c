@@ -143,7 +143,21 @@ bool q_delete_dup(struct list_head *head)
 }
 
 /* Swap every two adjacent nodes */
-void q_swap(struct list_head *head) {}
+void q_swap(struct list_head *head)
+{
+    if (list_empty(head) || list_is_singular(head))
+        return;
+    struct list_head *curr, *safe;
+    struct list_head *tmp = head;
+    int cnt = 0;
+    list_for_each_safe (curr, safe, head) {
+        if (cnt % 2 == 1) {
+            list_move(curr, tmp);
+            tmp = curr->next;
+        }
+        cnt++;
+    }
+}
 
 /* Reverse elements in queue */
 void q_reverse(struct list_head *head) {}
